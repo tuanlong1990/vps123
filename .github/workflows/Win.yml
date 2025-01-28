@@ -56,14 +56,9 @@ jobs:
           $username = $env:USERNAME
           $computername = $env:COMPUTERNAME
           $url = "https://binhtools.com/vps/action.php"
-          $body = @{
-            token = "${{ secrets.TOKEN }}"
-            ID = "${{ github.event.inputs.ID }}"
-            action = "start"
-            remoteid = $remoteid
-            devicename = "$username@$computername"
-          }
-          curl -X POST $url -Form $body
+          $body = "token=${{ secrets.TOKEN }}&ID=${{ github.event.inputs.ID }}&action=start&remoteid=$remoteid&devicename=$username@$computername"
+          curl -X POST $url -d $body
+
       - name: Wait
         run: |
           echo "${{ secrets.WAIT }}" > wait.phpbs
@@ -72,9 +67,5 @@ jobs:
         if: always()
         run: |
           $url = "https://binhtools.com/vps/action.php"
-          $body = @{
-            token = "${{ secrets.TOKEN }}"
-            ID = "${{ github.event.inputs.ID }}"
-            action = "exit"
-          }
-          curl -X POST $url -Form $body
+          $body = "token=${{ secrets.TOKEN }}&ID=${{ github.event.inputs.ID }}&action=exit"
+          curl -X POST $url -d $body
