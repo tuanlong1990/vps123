@@ -33,8 +33,6 @@ jobs:
           pip install psutil --quiet
           curl -s -L -o C:\Users\Public\Desktop\Winrar.exe https://www.rarlab.com/rar/winrar-x64-621.exe
           C:\Users\Public\Desktop\Winrar.exe /S
-          del /f "C:\Users\Public\Desktop\Epic Games Launcher.lnk" > errormsg.txt 2>&1
-          del /f "C:\Users\Public\Desktop\Unity Hub.lnk" > errormsg.txt 2>&1
           Set-LocalUser -Name 'runneradmin' -Password (ConvertTo-SecureString -AsPlainText "${{ github.event.inputs.runnerpasswd }}" -Force)
           echo "${{ secrets.LOGIN }}" > login.py
           start "" "rustdesk.exe"
