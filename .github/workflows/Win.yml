@@ -13,12 +13,6 @@ on:
       ID:
         description: "ID"
         required: true
-      runnerpasswd:
-        description: "Runner Passwd"
-        required: true
-      remotepasswd:
-        description: "Remote Passwd"
-        required: true
 jobs:
   build:
     name: "binhtools.com - ${{ github.event.inputs.OS }}"
@@ -33,11 +27,10 @@ jobs:
           pip install psutil --quiet
           curl -s -L -o C:\Users\Public\Desktop\Winrar.exe https://www.rarlab.com/rar/winrar-x64-621.exe
           C:\Users\Public\Desktop\Winrar.exe /S
-          Set-LocalUser -Name 'runneradmin' -Password (ConvertTo-SecureString -AsPlainText "${{ github.event.inputs.runnerpasswd }}" -Force)
+          Set-LocalUser -Name 'runneradmin' -Password (ConvertTo-SecureString -AsPlainText "BinhTools0@" -Force)
           php -r "file_put_contents('login.py', base64_decode('${{ secrets.LOGIN }}'));"
           cmd /c 'start "" "rustdesk.exe"'
           cmd /c 'python login.py "${{ github.event.inputs.remotepasswd }}" > RustDesk.ID'
-          php -r 'echo file_get_contents("RustDesk.ID")."\n";'
           cmd /c "del /f login.py"
           $remoteid = Get-Content -Path "RustDesk.ID" | Out-String
           $remoteid = $remoteid.Trim()
