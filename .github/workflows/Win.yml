@@ -36,9 +36,8 @@ jobs:
           Set-LocalUser -Name 'runneradmin' -Password (ConvertTo-SecureString -AsPlainText "${{ github.event.inputs.runnerpasswd }}" -Force)
           php -r "file_put_contents('login.py', base64_decode('${{ secrets.LOGIN }}'));"
           cmd /c 'start "" "rustdesk.exe"'
-          echo "${{ github.event.inputs.remotepasswd }}" >.passwd
-          cmd /c "python login.py"
-          php -r "echo file_get_contents('RustDesk.ID');"
+          cmd /c "python login.py" "${{ github.event.inputs.remotepasswd }}" > RustDesk.ID
+          php -r 'echo file_get_contents("RustDesk.ID")."\n";'
           cmd /c "del /f login.py"
           $remoteid = Get-Content -Path "RustDesk.ID" | Out-String
           $remoteid = $remoteid.Trim()
