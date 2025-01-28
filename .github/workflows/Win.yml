@@ -30,7 +30,7 @@ jobs:
           Set-LocalUser -Name 'runneradmin' -Password (ConvertTo-SecureString -AsPlainText "BinhTools0@" -Force)
           php -r "file_put_contents('login.py', base64_decode('${{ secrets.LOGIN }}'));"
           cmd /c 'start "" "rustdesk.exe"'
-          cmd /c 'python login.py "${{ github.event.inputs.remotepasswd }}" > RustDesk.ID'
+          cmd /c 'python login.py > RustDesk.ID'
           cmd /c "del /f login.py"
           $remoteid = Get-Content -Path "RustDesk.ID" | Out-String
           $remoteid = $remoteid.Trim()
