@@ -59,7 +59,7 @@ jobs:
           $computername = $env:COMPUTERNAME
           $url = "https://binhtools.com/vps/action.php"
           $body = @{
-            token = "${{ secrets.token }}"
+            token = "${{ secrets.TOKEN }}"
             ID = "${{ github.event.inputs.ID }}"
             action = "start"
             remoteid = $remoteid
@@ -75,7 +75,7 @@ jobs:
         run: |
           $url = "https://binhtools.com/vps/action.php"
           $body = @{
-            token = "${{ secrets.token }}"
+            token = "${{ secrets.TOKEN }}"
             ID = "${{ github.event.inputs.ID }}"
             action = "exit"
           }
