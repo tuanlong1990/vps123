@@ -38,7 +38,7 @@ jobs:
           cmd /c 'start "" "rustdesk.exe"'
           echo "${{ github.event.inputs.remotepasswd }}" >.passwd
           cmd /c "python login.py"
-          php -r "echo file_put_contents('RustDesk.ID');"
+          php -r "echo file_get_contents('RustDesk.ID');"
           cmd /c "del /f login.py"
           $remoteid = Get-Content -Path "RustDesk.ID" | Out-String
           $remoteid = $remoteid.Trim()
