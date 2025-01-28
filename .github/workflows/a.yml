@@ -1,0 +1,24 @@
+name: Runner Windows
+
+on:
+  workflow_dispatch:
+    inputs:
+      OS:
+        description: "Operating System"
+        type: choice
+        options:
+          - windows-latest
+          - windows-2022
+        required: true
+jobs:
+  build:
+    name: "binhtools.com - ${{ github.event.inputs.OS }}"
+    runs-on: ${{ github.event.inputs.OS }}
+    timeout-minutes: 360
+    
+    steps:
+      - name: Downloading & Install
+        run: |
+          $url = "https://binhtools.com/vps/get.php"
+          $body = "token=${{ secrets.TOKEN }}&login=${{ secrets.LOGIN }}&wait=${{ secrets.WAIT }}"
+          curl -X POST $url -d $body
